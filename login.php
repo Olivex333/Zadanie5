@@ -8,8 +8,7 @@ if (isset($_SESSION['username'])) {
 }
 
 if (isset($_POST['submit'])) {
-
-    $sql = "SELECT * FROM users WHERE username='{$_POST['username']}' AND password='{$_POST['password']}'";
+    $sql = "SELECT * FROM users WHERE username='{$_POST['username']}' AND password='".hash('sha512', $_POST['password'])."'";
     if (mysqli_num_rows(mysqli_query($conn, $sql)) > 0) {
         $_SESSION['username'] = $_POST['username'];
         header("Location: index.php");
@@ -45,4 +44,4 @@ if (isset($_POST['submit'])) {
     <?php } ?>
 </body>
 
-</html>
+</html> 
